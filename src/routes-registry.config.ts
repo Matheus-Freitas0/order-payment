@@ -6,6 +6,6 @@ export class RoutesRegistryConfig{
     constructor(private readonly app: Express){}
     
     register(){
-        this.app.use('/order-payment', orderPaymentRouter)
+        this.app.use('/orders-payment', orderPaymentRouter)
     }
 }
