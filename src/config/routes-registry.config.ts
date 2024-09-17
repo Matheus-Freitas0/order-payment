@@ -1,5 +1,5 @@
 import { Express } from "express-serve-static-core"
-import orderPaymentRouter from './order-payment.router'
+import orderPaymentRouter from '../router/order-payment.router'
 
 export class RoutesRegistryConfig{
     
