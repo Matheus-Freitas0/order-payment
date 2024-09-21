@@ -2,15 +2,49 @@ import mongoose from 'mongoose'
 
 const paymentSchema = new mongoose.Schema({
     
-    // - amount
-    // - created
-    // - cardNumber (4 last)
-    // - transactionNumber
-    // - partnerId
-    // - paymentMethod
-    // - clientDocument
-    // - orderCode
+    amount: {
+        type: Number,
+        required: true,
+        min: 0
+    },
+    
+    created: {
+        type: Date,
+        default: Date.now
+    },
+    
+    cardNumber: {
+        type: String,
+        required: true
+    },
 
+    transactionNumber: {
+        type: String,
+        required: true,
+        unique: true
+    },
+
+    partnerId: {
+        type: String,
+        required: true
+    },
+
+    paymentMethod: {
+        type: String,
+        required: true
+    },
+    
+    clientDocument: {
+        type: String,
+        required: true
+    },
+
+    orderCode: {
+        type: String,
+        required: true
+    },
+}, {
+    timestamps: true
 })
 
 export default mongoose.model('Payment', paymentSchema)
