@@ -39,7 +39,8 @@ const paymentSchema = new mongoose.Schema({
     
     clientDocument: {
         type: String,
-        required: true
+        required: true,
+        match: /^\d{11}$|^\d{14}$/
     },
 
     orderCode: {
