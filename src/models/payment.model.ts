@@ -22,6 +22,11 @@ const paymentSchema = new mongoose.Schema({
     //colocar minimo e maximo nos codigos?
     //usar timestamp?
     //estudar algoritmo Luhn
+    
+    //retornar ultimos 4 
+        //set: (value) => {
+        //const formattedValue = value.replace(/[\s-]/g, '');
+        //return `**** **** **** ${formattedValue.slice(-4)}`;}
 
     amount: {
         type: Number,
@@ -64,7 +69,7 @@ const paymentSchema = new mongoose.Schema({
         required: [true, 'O metodo de pagamento é obrigatório'],
         enum: {
             values: ['credit', 'debit', 'cash','pix'],
-            message: [`Só é possivel colocar estes metodos de pagamento: credit', 'debit', 'cash','pix`],
+            message: [`Método de pagamento inválido. Escolha entre: credit, debit, cash, pix'`],
         },
     },
     
