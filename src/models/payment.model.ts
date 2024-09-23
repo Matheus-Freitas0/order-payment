@@ -5,28 +5,29 @@ const paymentSchema = new mongoose.Schema({
     amount: {
         type: Number,
         required: true,
-        min: 0
+        min: 0,
     },
     
     created: {
         type: Date,
-        default: Date.now
+        default: Date.now,
     },
     
     cardNumber: {
         type: String,
-        required: true
+        required: true,
     },
 
     transactionNumber: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true,
     },
 
     partnerId: {
         type: String,
-        required: true
+        required: true,
     },
 
     paymentMethod: {
@@ -34,21 +35,23 @@ const paymentSchema = new mongoose.Schema({
         required: true,
         enum: {
             values: ['credit', 'debit', 'cash','pix']
-        }
+        },
     },
     
     clientDocument: {
         type: String,
         required: true,
-        match: /^\d{11}$|^\d{14}$/
+        match: /^\d{11}$|^\d{14}$/,
+        trim: true,
     },
 
     orderCode: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
     },
-}, {
-    timestamps: true
 })
+paymentSchema.index({ partnerId: 1 })
+paymentSchema.index({ clientDocument: 1 })
 
 export default mongoose.model('Payment', paymentSchema)
