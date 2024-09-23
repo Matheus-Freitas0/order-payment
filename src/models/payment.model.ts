@@ -18,7 +18,7 @@ function luhnCheck(cardNumber: string | any[]) {
 const paymentSchema = new mongoose.Schema({
     
     //verificar se precisa das mensagens
-    //testar melhor validator do numero do cartão
+    //testar melhor validator do numero do cartão (luhn ou usar validator)
     //colocar minimo e maximo nos codigos?
     //usar timestamp?
     //estudar algoritmo Luhn
@@ -26,12 +26,13 @@ const paymentSchema = new mongoose.Schema({
     amount: {
         type: Number,
         required: [true, 'O valor total é obrigatório'],
-        min: [0.01, 'O valor do pagamento deve ser maior que zero']
+        min: [0.01, 'O valor do pagamento deve ser maior que zero'],
     },
     
     created: {
         type: Date,
         default: Date.now,
+        immutable: true,
     },
     
     cardNumber: {
@@ -42,7 +43,7 @@ const paymentSchema = new mongoose.Schema({
                 const formattedValue = value.replace(/[\s-]/g, '');
                 return formattedValue.length >= 13 && luhnCheck(formattedValue);
             },
-            message: 'O número do cartão de crédito é inválido'
+            message: 'O número do cartão de crédito é inválido',
         }
     },
 
@@ -63,7 +64,7 @@ const paymentSchema = new mongoose.Schema({
         required: [true, 'O metodo de pagamento é obrigatório'],
         enum: {
             values: ['credit', 'debit', 'cash','pix'],
-            message: [`Só é possivel colocar estes metodos de pagamento: credit', 'debit', 'cash','pix`]
+            message: [`Só é possivel colocar estes metodos de pagamento: credit', 'debit', 'cash','pix`],
         },
     },
     
