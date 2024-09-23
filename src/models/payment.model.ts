@@ -16,6 +16,7 @@ function luhnCheck(cardNumber: string | any[]) {
 }
 
 const paymentSchema = new mongoose.Schema({
+    
     //verificar se precisa das mensagens
     //testar melhor validator do numero do cartão
     //colocar minimo e maximo nos codigos?
@@ -25,7 +26,7 @@ const paymentSchema = new mongoose.Schema({
     amount: {
         type: Number,
         required: [true, 'O valor total é obrigatório'],
-        min: [0, 'O valor do pagamento não pode ser menor que 0']
+        min: [0.01, 'O valor do pagamento deve ser maior que zero']
     },
     
     created: {
@@ -37,8 +38,9 @@ const paymentSchema = new mongoose.Schema({
         type: String,
         required: true,
         validate: {
-            validator: function(value: any) {
-                return luhnCheck(value.replace(/[\s-]/g, ''));
+            validator: function(value: string) {
+                const formattedValue = value.replace(/[\s-]/g, '');
+                return formattedValue.length >= 13 && luhnCheck(formattedValue);
             },
             message: 'O número do cartão de crédito é inválido'
         }
@@ -78,9 +80,7 @@ const paymentSchema = new mongoose.Schema({
         trim: true,
     },
 })
-paymentSchema.index({ partnerId: 1 })
-paymentSchema.index({ clientDocument: 1 })
-paymentSchema.index({ orderCode: 1 })
-paymentSchema.index({ transactionNumber: 1 })
+paymentSchema.index({ partnerId: 1, clientDocument: 1, orderCode: 1, transactionNumber: 1 });
+
 
 export default mongoose.model('Payment', paymentSchema)
