@@ -16,18 +16,6 @@ function luhnCheck(cardNumber: string | any[]) {
 }
 
 const paymentSchema = new mongoose.Schema({
-    
-    //verificar se precisa das mensagens
-    //testar melhor validator do numero do cartão (luhn ou usar validator)
-    //colocar minimo e maximo nos codigos?
-    //usar timestamp?
-    //estudar algoritmo Luhn
-    
-    //retornar ultimos 4 
-        //set: (value) => {
-        //const formattedValue = value.replace(/[\s-]/g, '');
-        //return `**** **** **** ${formattedValue.slice(-4)}`;}
-
     amount: {
         type: Number,
         required: [true, 'O valor total é obrigatório'],
@@ -61,7 +49,7 @@ const paymentSchema = new mongoose.Schema({
 
     partnerId: {
         type: String,
-        required: [true, 'O Id é é obrigatório'],
+        required: [true, 'O Id é obrigatório'],
     },
 
     paymentMethod: {
