@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-function luhnCheck(cardNumber: string | any[]) {
+function cardLengthCheck(cardNumber: string | any[]) {
     let sum = 0;
     for (let i = 0; i < cardNumber.length; i++) {
         let intValue = parseInt(cardNumber[i]);
@@ -22,19 +22,13 @@ const paymentSchema = new mongoose.Schema({
         min: [0.01, 'O valor do pagamento deve ser maior que zero'],
     },
     
-    created: {
-        type: Date,
-        default: Date.now,
-        immutable: true,
-    },
-    
     cardNumber: {
         type: String,
         required: true,
         validate: {
             validator: function(value: string) {
                 const formattedValue = value.replace(/[\s-]/g, '');
-                return formattedValue.length >= 13 && luhnCheck(formattedValue);
+                return formattedValue.length >= 13 && cardLengthCheck(formattedValue);
             },
             message: 'O número do cartão de crédito é inválido',
         }
@@ -56,7 +50,7 @@ const paymentSchema = new mongoose.Schema({
         type: String,
         required: [true, 'O metodo de pagamento é obrigatório'],
         enum: {
-            values: ['credit', 'debit', 'cash','pix'],
+            values: ['CREDIT', 'DEBIT', 'CASH', 'PIX'],
             message: [`Método de pagamento inválido. Escolha entre: credit, debit, cash, pix'`],
         },
     },
@@ -72,8 +66,9 @@ const paymentSchema = new mongoose.Schema({
         type: String,
         required: [true, 'O codigo do pedido é obrigatório' ],
         trim: true,
-    },
-})
+    }
+},  { timestamps: true})
+
 paymentSchema.index({ partnerId: 1, clientDocument: 1, orderCode: 1, transactionNumber: 1 });
 
 
