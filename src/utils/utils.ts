@@ -1,7 +1,14 @@
+import { randomUUID } from 'crypto';
+
 export const sleep = (time: number = 1000): Promise<void> => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
-            resolve()
+            resolve();
         }, time);
-    })
-}
+    });
+};
+
+export const generateUUIDSimple = (): string => {
+    return randomUUID().split('-').pop()!;
+};
+

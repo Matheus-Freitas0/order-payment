@@ -1,27 +1,21 @@
 import { Request, Response } from 'express'
 import Payment from '../models/payment.model'
+import { PaymentService } from '../service/payment.service'
 
 export class OrderPaymentController {
 
+    private paymentService: PaymentService
 
     constructor () {
         this.payOrder = this.payOrder.bind(this)
+        this.paymentService = new PaymentService()
     }
 
     async payOrder (req: Request, res: Response) {
         
-        const payment = new Payment({
-            amount: 10,
-            cardNumber: "5228464330663579",
-            transactionNumber: "123456",
-            partnerId: "77777",
-            paymentMethod: "PIX",
-            clientDocument: '30040466677',
-            orderCode: 'abcd-4455'
-        })
+        const payment = await this.paymentService.getPaymentByOrderCode('abcd-4455')
 
-        await payment.save()
-        res.status(201).json({message: 'order has been payed'})
+        res.status(201).json(payment)
     }
 
 }
