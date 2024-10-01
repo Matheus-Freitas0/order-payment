@@ -12,7 +12,7 @@ export class OrderPaymentController {
         
         const payment = new Payment({
             amount: 10,
-            cardNumber: "123 4567 8912 6753",
+            cardNumber: "5228464330663579",
             transactionNumber: "123456",
             partnerId: "77777",
             paymentMethod: "PIX",
