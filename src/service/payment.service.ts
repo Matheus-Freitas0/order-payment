@@ -48,9 +48,7 @@ export class PaymentService{
 
     async getPaymentByOrderCode(orderCode: string): Promise<any>{
         const payment = await this.paymentRepository.getPaymentByOrderCode(orderCode)
-        
-        // todo - sanitize object
-
-        return payment
+        const { _id, __v, ...sanitizedPayment } = payment.toObject()
+        return sanitizedPayment;
     }
 }
