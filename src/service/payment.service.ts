@@ -40,15 +40,17 @@ export class PaymentService{
         try {
             await paymentExecutor.execute(paymentInstrument)
             await this.paymentRepository.create(paymentInstrument, 'SUCCESS', 'success')
-        } catch(error: any) {
+        
+        } catch (error: any) {
             await this.paymentRepository.create(paymentInstrument, 'FAILED', error.message)
         }
        
     }
 
     async getPaymentByOrderCode(orderCode: string): Promise<any>{
-        const payment = await this.paymentRepository.getPaymentByOrderCode(orderCode)
+        const payment = await this.paymentRepository.getByOrderCode(orderCode)
+        
         const { _id, __v, ...sanitizedPayment } = payment.toObject()
-        return sanitizedPayment;
+        return sanitizedPayment
     }
 }

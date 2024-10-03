@@ -24,7 +24,7 @@ export class PaymentRepository {
     await payment.save();
   }
 
-  async getPaymentByOrderCode(orderCode: string): Promise<any> {
+  async getByOrderCode(orderCode: string): Promise<any> {
     return await Payment.findOne({ orderCode });
   }
 }
