@@ -7,15 +7,14 @@ export class OrderPaymentController {
     private paymentService: PaymentService
 
     constructor () {
-        this.payOrder = this.payOrder.bind(this)
+        this.getOrder = this.getOrder.bind(this)
         this.paymentService = new PaymentService()
     }
 
-    async payOrder (req: Request, res: Response) {
-        
-        const payment = await this.paymentService.getPaymentByOrderCode('abcd-4455')
-
-        res.status(201).json(payment)
+    async getOrder(req: Request, res: Response) {
+        const orderCode = req.params.orderCode
+        const payment = await this.paymentService.getPaymentByOrderCode(orderCode)
+        res.status(200).json(payment)
     }
 
 }
