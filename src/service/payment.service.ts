@@ -15,7 +15,7 @@ export class PaymentService{
         this.paymentRepository = new PaymentRepository()
     }
 
-    async executePaymentTransaction(paymentInstrument: PaymentDTO): Promise<void>{
+    async pay(paymentInstrument: PaymentDTO): Promise<void>{
         await sleep(5000)
         let paymentExecutor: PaymentExecutor
 
