@@ -9,7 +9,7 @@ export class RabbitMQConnection {
     private readonly USER = 'admin'
     private readonly PASS = 'admin'
     private readonly PORT = '5672'
-    private readonly HOST = '192.168.15.4'
+    private readonly HOST = '192.168.15.13'
     private readonly PROTOCOL = 'amqp'
 
     async connect (): Promise<void> {
