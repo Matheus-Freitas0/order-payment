@@ -50,7 +50,7 @@ const paymentSchema = new mongoose.Schema({
         type: String,
         required: [true, 'O metodo de pagamento é obrigatório'],
         enum: {
-            values: ['CREDIT', 'DEBIT', 'CASH', 'PIX'],
+            values: ['CREDIT','DEBIT','CASH','PIX'],
             message: [`Método de pagamento inválido. Escolha entre: credit, debit, cash, pix'`],
         },
     },

@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import Payment from '../models/payment.model'
 import { PaymentService } from '../service/payment.service'
 
 export class OrderPaymentController {
