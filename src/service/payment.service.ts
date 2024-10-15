@@ -19,7 +19,7 @@ export class PaymentService{
         await sleep(5000)
         let paymentExecutor: PaymentExecutor
 
-        switch (paymentInstrument.method) {
+        switch (paymentInstrument.paymentMethod) {
             case "PIX":
                 paymentExecutor = new PayPix()
                 break;
@@ -34,7 +34,7 @@ export class PaymentService{
                 break;
             
             default:
-                throw new Error(`Invalid payment method or not implemented yet. method =${paymentInstrument.method}`)
+                throw new Error(`Invalid payment method or not implemented yet. method =${paymentInstrument.paymentMethod}`)
         }
 
         try {

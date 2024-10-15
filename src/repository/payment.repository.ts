@@ -15,7 +15,7 @@ export class PaymentRepository {
       cardNumber: paymentDTO.cardNumber,
       transactionNumber,
       partnerId: paymentDTO.partnerId,
-      method: paymentDTO.method,
+      paymentMethod: paymentDTO.paymentMethod,
       clientDocument: paymentDTO.clientDocument,
       orderCode: paymentDTO.orderCode,
       status: paymentStatus,
