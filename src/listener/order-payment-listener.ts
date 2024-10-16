@@ -10,14 +10,16 @@ const paymentService: PaymentService = new PaymentService()
 function orderPaymentListener(connection: RabbitMQConnection): void {
     if (!connection) throw new Error('rabbitmq connection cannot by null')
 
-    connection.listen(ORDER_PAYMENT_QUEUE, (message: client.ConsumeMessage | null) => {
+    connection.listen(ORDER_PAYMENT_QUEUE, async (message: client.ConsumeMessage | null) => {
         if (!message) return
 
         try {
             const paymentMessage: PaymentDTO = JSON.parse(message.content.toString())
             console.log('order_status_queue incomming message:', paymentMessage)            
-            paymentService.pay(paymentMessage)
-            connection.channel.ack(message)       
+            const payment = await paymentService.pay(paymentMessage) 
+            connection.channel.ack(message)
+            await paymentService.partnerWebhookExecution(payment)
+            
         } catch (error) {
             connection.channel.ack(message, false)
         }
